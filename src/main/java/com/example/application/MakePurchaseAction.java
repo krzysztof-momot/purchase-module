@@ -22,6 +22,8 @@ public interface MakePurchaseAction {
         private final ItemRepository itemRepository;
         private final PurchaseService purchaseService;
 
+        private final ChargeRepository chargeRepository;
+
         @Autowired
         public MakePurchaseActionImpl(CreditCardRepository creditCardRepository,
                                       ItemRepository itemRepository, PurchaseService purchaseService,
@@ -29,6 +31,7 @@ public interface MakePurchaseAction {
             this.creditCardRepository = creditCardRepository;
             this.itemRepository = itemRepository;
             this.purchaseService = purchaseService;
+            this.chargeRepository = chargeRepository;
         }
 
         @Override
@@ -46,6 +49,8 @@ public interface MakePurchaseAction {
                     .mapKeys(itemRepository::get)
                     .mapValues(List::size);
             Purchase purchase = purchaseService.makePurchase(creditCardOption.get(), itemsToQuantity);
+            chargeRepository.save(purchase.getCharge());
+
             return PurchaseTO.from(purchase);
         }
     }
