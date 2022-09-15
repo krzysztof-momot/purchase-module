@@ -1,13 +1,12 @@
 package com.example.repositories.jpa.entities;
 
-import com.example.domain.Charge;
 import com.example.domain.CreditCard;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +21,7 @@ public class CreditCardJPA {
     private Long id;
 
     @Column(name = "limit")
-    private Double limit;
+    private BigDecimal limit;
 
     @Column(name = "number")
     private String number;
@@ -33,7 +32,7 @@ public class CreditCardJPA {
     public CreditCard toCreditCard() {
         return new CreditCard(number, limit, charges.stream()
                 .map(ChargeJPA::getAmount)
-                .reduce(Double::sum).orElse(0.0));
+                .reduce(BigDecimal::add).orElse(BigDecimal.ZERO));
     }
 }
 

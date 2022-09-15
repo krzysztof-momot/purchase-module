@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class ItemJPA {
     private String id;
 
     @Column
-    private double cost;
+    private BigDecimal cost;
 
     public Item toItem() {
         return new Item(id, cost);

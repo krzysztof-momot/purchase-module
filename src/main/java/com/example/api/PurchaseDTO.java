@@ -6,14 +6,18 @@ import com.example.domain.Purchase;
 import io.vavr.collection.Map;
 import lombok.Value;
 
+import java.math.BigDecimal;
+
 @Value
 public class PurchaseDTO {
 
     Map<ItemDTO, Integer> purchasedItems;
-    double chargeAmount;
+    BigDecimal chargeAmount;
     String message;
 
     public static PurchaseDTO from(Purchase purchase) {
-        return new PurchaseDTO(purchase.getItems().mapKeys(ItemDTO::from), purchase.getCharge().getAmount(), purchase.getCharge().getMessage());
+        return new PurchaseDTO(purchase.getItems().mapKeys(ItemDTO::from),
+                purchase.getCharge().getAmount(),
+                purchase.getCharge().getMessage());
     }
 }

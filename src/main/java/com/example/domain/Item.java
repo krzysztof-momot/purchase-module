@@ -3,6 +3,8 @@ package com.example.domain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
+
 /**
  * Item business object.
  */
@@ -11,5 +13,5 @@ import lombok.RequiredArgsConstructor;
 public class Item {
 
     private final String id;
-    private final double cost;
+    private final BigDecimal cost;
 }

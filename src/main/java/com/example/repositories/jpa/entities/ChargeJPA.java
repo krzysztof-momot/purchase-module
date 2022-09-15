@@ -4,6 +4,7 @@ import com.example.domain.Charge;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +25,7 @@ public class ChargeJPA {
     private CreditCardJPA creditCard;
 
     @Column
-    private double amount;
+    private BigDecimal amount;
 
     public static ChargeJPA from(Charge charge, CreditCardJPA creditCardJPA) {
         return ChargeJPA.builder()
