@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Configuration;
 public class DomainConfiguration {
 
     @Bean
-    public PurchaseService getPaymentService(ChargeRepository chargeRepository) {
-        return new PurchaseService(chargeRepository);
+    public PurchaseService getPurchaseService() {
+        return new PurchaseService();
     }
 
     @Bean
