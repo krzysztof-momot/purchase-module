@@ -1,6 +1,6 @@
 package com.example.api.purchase;
 
-import com.example.api.PurchaseTO;
+import com.example.api.PurchaseDTO;
 import com.example.application.InvalidCreditCardException;
 import com.example.application.MakePurchaseAction;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class PurchaseController {
     //TODO: authorization
     @PostMapping(path = "/api/buy")
     @ResponseBody
-    public PurchaseTO buy(@Valid @RequestBody PurchaseRequestDTO purchaseRequest) {
+    public PurchaseDTO buy(@Valid @RequestBody PurchaseRequestDTO purchaseRequest) {
         return makePurchaseAction.execute(purchaseRequest.getCreditCard(), purchaseRequest.getItems());
     }
 

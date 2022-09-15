@@ -1,6 +1,6 @@
 package com.example.application;
 
-import com.example.api.PurchaseTO;
+import com.example.api.PurchaseDTO;
 import com.example.api.purchase.CreditCardDTO;
 import com.example.api.purchase.ItemDTO;
 import com.example.domain.*;
@@ -12,8 +12,16 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 
+/**
+ * Orchestrates {@link Purchase} creation.
+ */
 public interface MakePurchaseAction {
-    PurchaseTO execute(CreditCardDTO creditCard, List<ItemDTO> items);
+    /**
+     * @param creditCard credit card for purchase
+     * @param items      list of items to buy
+     * @return a purchase information
+     */
+    PurchaseDTO execute(CreditCardDTO creditCard, List<ItemDTO> items);
 
     @Component
     class MakePurchaseActionImpl implements MakePurchaseAction {
@@ -24,8 +32,14 @@ public interface MakePurchaseAction {
 
         private final ChargeRepository chargeRepository;
 
+        /**
+         * @param creditCardRepository repository for credit cards
+         * @param itemRepository repository for items
+         * @param purchaseService purchase service
+         * @param chargeRepository repository for charges
+         */
         @Autowired
-        public MakePurchaseActionImpl(CreditCardRepository creditCardRepository,
+        MakePurchaseActionImpl(CreditCardRepository creditCardRepository,
                                       ItemRepository itemRepository, PurchaseService purchaseService,
                                       ChargeRepository chargeRepository) {
             this.creditCardRepository = creditCardRepository;
@@ -36,7 +50,7 @@ public interface MakePurchaseAction {
 
         @Override
         @Transactional
-        public PurchaseTO execute(CreditCardDTO creditCardDTO, List<ItemDTO> itemDTOS) {
+        public PurchaseDTO execute(CreditCardDTO creditCardDTO, List<ItemDTO> itemDTOS) {
             String cardNumber = creditCardDTO.getCardNumber();
             if (cardNumber == null || cardNumber.isEmpty()) {
                 throw new InvalidCreditCardException(cardNumber);
@@ -51,7 +65,7 @@ public interface MakePurchaseAction {
             Purchase purchase = purchaseService.makePurchase(creditCardOption.get(), itemsToQuantity);
             chargeRepository.save(purchase.getCharge());
 
-            return PurchaseTO.from(purchase);
+            return PurchaseDTO.from(purchase);
         }
     }
 }

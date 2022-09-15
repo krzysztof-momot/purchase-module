@@ -6,6 +6,9 @@ import io.vavr.control.Either;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * CreditCard business object.
+ */
 @Getter
 @RequiredArgsConstructor
 public class CreditCard {
@@ -15,6 +18,12 @@ public class CreditCard {
 
     private final double totalCharges;
 
+    /**
+     * Accept 'shopping list', i.e. items to buy.
+     *
+     * @param itemsToQuantity items to buy and their quantities
+     * @return a charge, either accepted or rejected
+     */
     Either<Charge.Rejected, Charge.Accepted> accept(Map<Item, Integer> itemsToQuantity) {
         double newCharge = itemsToQuantity.map((item, quantity) -> Tuple.of(item, item.getCost() * quantity))
                 .values()

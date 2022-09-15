@@ -7,13 +7,13 @@ import io.vavr.collection.Map;
 import lombok.Value;
 
 @Value
-public class PurchaseTO {
+public class PurchaseDTO {
 
     Map<ItemDTO, Integer> purchasedItems;
     double chargeAmount;
     String message;
 
-    public static PurchaseTO from(Purchase purchase) {
-        return new PurchaseTO(purchase.getItems().mapKeys(ItemDTO::from), purchase.getCharge().getAmount(), purchase.getCharge().getMessage());
+    public static PurchaseDTO from(Purchase purchase) {
+        return new PurchaseDTO(purchase.getItems().mapKeys(ItemDTO::from), purchase.getCharge().getAmount(), purchase.getCharge().getMessage());
     }
 }
