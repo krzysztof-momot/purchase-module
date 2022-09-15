@@ -1,16 +1,13 @@
 package com.example.domain;
 
 import io.vavr.collection.HashMap;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(MockitoExtension.class)
 public class PurchaseServiceTest {
     private final PurchaseService purchaseService = new PurchaseService();
 
